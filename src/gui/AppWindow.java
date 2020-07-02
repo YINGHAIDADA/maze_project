@@ -15,6 +15,7 @@ public class AppWindow {
        integrationView.addMazeView("随机迷宫",mazeView);
        
        mazeMaker = new MazeByFile(new File("迷宫文件/蜀道迷宫.txt"));
+       
        point= mazeMaker.initMaze();
        SetChargeOnRoad policeTwo = new  ChargeOnRoad();
        policeTwo.setMAXMoney(10); //收费站最高收费额为10

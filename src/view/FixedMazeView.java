@@ -16,7 +16,7 @@ public class FixedMazeView extends MazeView implements ActionListener {
     public void actionPerformed(ActionEvent e){
        int m =point.length;
        int n =point[0].length;
-       MazeMaker mazeMaker = new MazeByFile(new File("软件发布/迷宫文件/蜀道迷宫.txt"));
+       MazeMaker mazeMaker = new MazeByFile(new File("迷宫文件/蜀道迷宫.txt"));
        point= mazeMaker.initMaze();
        initPointXY();   
        initView();

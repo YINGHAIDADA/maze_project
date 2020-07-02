@@ -32,7 +32,7 @@ public class PersonInMaze extends JTextField{
    public void paintComponent(Graphics g){
       super.paintComponent(g);
       int w=getBounds().width;
-      int h=getBounds().height; 
+      int h=getBounds().height;
       Image image=tool.getImage("ÃÔ¹¬ÎÄ¼þ/person.gif");  
       g.drawImage(image,0,0,w,h,this);
   } 

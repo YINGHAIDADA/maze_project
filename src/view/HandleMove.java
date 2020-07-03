@@ -128,10 +128,12 @@ public class HandleMove extends JPanel implements KeyListener, ActionListener {
 				isLeave = true;
 				person.cleanMoney();
 				
-				input.setVisible(true);
-				input.time = spendTime;
-                
-				if (mazetag == 2) {
+                if(mazetag == 1)
+                {
+                	input.setVisible(true);// 弹出输入对话框
+    				input.time = spendTime;// 传入闯关用时
+                }
+				else if (mazetag == 2) {
 					if(ChallengeMazeView.count==ChallengeMazeView.top)
 					{
 						JOptionPane.showMessageDialog(this, "恭喜您已经完成全部关卡", "胜利", JOptionPane.INFORMATION_MESSAGE);

@@ -85,9 +85,12 @@ class InputDialog extends JDialog implements ActionListener
 		{
 			str = text.getText();			
 			//**********
-			
-			
-				
+			try {
+				FileIn("迷宫文件/英雄榜.txt");
+			} catch (IOException e1) {
+				// TODO 自动生成的 catch 块
+				e1.printStackTrace();
+			}
 			this.setVisible(false);
 		}
 		else
@@ -98,7 +101,7 @@ class InputDialog extends JDialog implements ActionListener
 	
 	public void FileIn(String ad) throws IOException// 写入文件
 	{	
-		BufferedWriter out = new BufferedWriter(new FileWriter("迷宫文件/英雄榜.txt")); // 创建缓存区字符输出流，需要传入Write对象
+		BufferedWriter out = new BufferedWriter(new FileWriter(ad)); // 创建缓存区字符输出流，需要传入Write对象
 		out.write(str);
 		out.newLine();
 		out.write(Integer.toString(time));

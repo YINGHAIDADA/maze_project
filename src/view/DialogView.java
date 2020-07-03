@@ -4,15 +4,16 @@ import java.awt.event.*;
 import java.text.*;
 import javax.swing.*;
 import java.io.*;
-import javax.swing.table.DefaultTableModel;
-
+import data.Record;
+import data.LinkList;
+import data.FileIO;
 public class DialogView extends JFrame implements ActionListener
 {
 	TopDialog d = new TopDialog();
 	JButton b = new JButton("测试");
-	static Font f1 = new Font("TimesRoman", Font.PLAIN, 28);
-    static Font f2 = new Font("TimesRoman", Font.PLAIN, 20);
-    static Font f3 = new Font("TimesRoman", Font.PLAIN, 15);
+	static Font f1 = new Font("TimesRoman", Font.BOLD, 28);
+    static Font f2 = new Font("TimesRoman", Font.BOLD, 20);
+    static Font f3 = new Font("TimesRoman", Font.PLAIN, 18);
 	DialogView()
 	{
 		this.setLayout(null);
@@ -35,8 +36,7 @@ public class DialogView extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
     {
         d.setVisible(true);      
-    }
-	
+    }	
 }
 
 // 输入名字对话框
@@ -53,8 +53,7 @@ class InputDialog extends JDialog implements ActionListener
     
 	InputDialog()// JFrame f
 	{
-		//super(f);
-		
+		//super(f);		
         this.setLayout(null);
         this.setSize(Width, Height);       
         ImageIcon menubackgroundp = new ImageIcon("迷宫文件/菜单栏背景.png");
@@ -81,44 +80,33 @@ class InputDialog extends JDialog implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
     {
-		if(e.equals(confirm))
+		if(e.getSource() == confirm)
 		{
 			str = text.getText();			
 			//**********
 			try {
-				FileIn("迷宫文件/英雄榜.txt");
+				FileIO.FileIn("迷宫文件/英雄榜.txt", str);
+				FileIO.FileIn("迷宫文件/英雄榜.txt", Integer.toString(time));
 			} catch (IOException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
 			}
 			this.setVisible(false);
 		}
-		else
+		else if(e.getSource() == cancel)
 		{
 			this.setVisible(false);
 		}    
     }
 	
-	public void FileIn(String ad) throws IOException// 写入文件
-	{	
-		BufferedWriter out = new BufferedWriter(new FileWriter(ad)); // 创建缓存区字符输出流，需要传入Write对象
-		out.write(str);
-		out.newLine();
-		out.write(Integer.toString(time));
-		out.flush();
-		out.close();
-	}
-	
-	public void FileOut(String ad) throws IOException// 读取文件
-	{
-		String thisLine;
-		BufferedReader in = new BufferedReader(new FileReader(ad)); // 创建缓存区字符输入流，需要传如Reader对象
-		while((thisLine = in.readLine()) != null)    // 每次读取一行，直到文件结束
-			System.out.println(thisLine);
-		in.close();
-	}
+//	public void FileIn(String ad, String s) throws IOException// 写入文件
+//	{	
+//
+//		FileWriter writer = new FileWriter(ad, true);
+//        writer.write("\n" + s);
+//        writer.close();
+//	}	
 }
-
 
 
 // 英雄榜对话框
@@ -129,25 +117,22 @@ class TopDialog extends JDialog implements ActionListener
     JLabel top = new JLabel("名次记录");
     JLabel name = new JLabel("玩  家  姓  名");
     JLabel time = new JLabel("闯关用时");
-    JLabel[][] record = new JLabel[10][2];// 最多前10条记录
     ImageIcon bi = new ImageIcon("迷宫文件/返回.jpg");
     JButton back = new JButton("返回");
-      
-    DefaultTableModel model = null;
-    JTable table = null;
+    LinkList L = new LinkList();// 存记录链表  
     
     TopDialog()
     {       
         this.setLayout(null);
         this.setSize(Width, Height);       
-        ImageIcon menubackgroundp = new ImageIcon("迷宫文件/表格2.png");
+        ImageIcon menubackgroundp = new ImageIcon("迷宫文件/表格1.png");
         menubackgroundp.setImage(menubackgroundp.getImage().getScaledInstance(Width, Height, Image.SCALE_DEFAULT));
         background.setIcon(menubackgroundp);       
         //bi.setImage(bi.getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));        
         
         top.setFont(DialogView.f2);name.setFont(DialogView.f2);time.setFont(DialogView.f2);
         back.setFont(DialogView.f2);
-        //top.setForeground(Color.WHITE);name.setForeground(Color.WHITE);time.setForeground(Color.WHITE);
+        top.setForeground(Color.WHITE);name.setForeground(Color.WHITE);time.setForeground(Color.WHITE);
         top.setBounds(10, 7, 100, 40);
         name.setBounds(180, 7, 120, 40);
         time.setBounds(392, 7, 100, 40);
@@ -156,26 +141,43 @@ class TopDialog extends JDialog implements ActionListener
         this.add(top);
         this.add(name);
         this.add(time);
-        this.add(back);        
-        for(int i = 0; i < 10; i++)
+        this.add(back);  
+        
+        try {
+        	FileIO.FileOut("迷宫文件/英雄榜.txt", L);
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+        
+        //L.Put();
+        // 将链表中数据打印输出
+        Record p = L.h.next;
+        int i = 0;
+        while(p != null && i < 10)
         {
-        	record[i][0] = new JLabel("姓  名");
-        	record[i][1] = new JLabel("用  时");
-        	record[i][0].setFont(DialogView.f3);
-        	record[i][1].setFont(DialogView.f3);
-        	record[i][0].setBounds(185, 50+i*25, 100, 25);
-        	record[i][1].setBounds(400, 50+i*25, 100, 25);
+        	JLabel nameL = new JLabel(p.name);
+        	JLabel timeL = new JLabel(Integer.toString(p.time));
+        	nameL.setFont(DialogView.f3);
+        	timeL.setFont(DialogView.f3);
+        	nameL.setBounds(185, 50+i*25, 100, 25);
+        	timeL.setBounds(410, 50+i*25, 100, 25);
+        	nameL.setForeground(Color.WHITE);
+        	timeL.setForeground(Color.WHITE);
         	JLabel t = new JLabel(Integer.toString(i + 1));
         	t.setFont(DialogView.f3);
         	t.setBounds(50, 50+i*25, 40, 25);
+        	t.setForeground(Color.WHITE);
         	this.add(t);
-        	this.add(record[i][0]);
-        	this.add(record[i][1]);
+        	this.add(nameL);
+        	this.add(timeL);
+        	p = p.next;
+        	i++;
         }
         this.add(background);        
         back.addActionListener(this);        
         background.setSize(Width, Height);
-        this.setBounds(600, 240, Width, Height);
+        this.setBounds(400, 200, Width, Height);
         this.setUndecorated(true); //去除关闭按钮
     }
     
@@ -183,7 +185,22 @@ class TopDialog extends JDialog implements ActionListener
     {
         this.setVisible(false);       
     }
+    
+//    public void FileOut(String ad) throws IOException// 读取文件
+//	{
+//		String thisLine;
+//		BufferedReader in = new BufferedReader(new FileReader(ad)); // 创建缓存区字符输入流，需要传如Reader对象
+//		while((thisLine = in.readLine()) != null)    // 每次读取一行，直到文件结束
+//		{
+//			String name = thisLine;
+//			int time = Integer.parseInt(in.readLine());
+//			Record q = new Record(name, time);
+//			L.SortIn(q);						
+//		}
+//		in.close();
+//	}
 }
+
 
 
 

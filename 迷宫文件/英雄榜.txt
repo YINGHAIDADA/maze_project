@@ -1,4 +1,8 @@
-mao 37
-pan 45
-wu 48
-wang 51
+mao
+12
+pan
+11
+wang
+17
+wu
+11

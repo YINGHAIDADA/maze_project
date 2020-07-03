@@ -11,26 +11,32 @@ public class MazeView extends JPanel {
     int leftX = 80;                //起点偏移坐标
     int leftY = 50;
     PersonInMaze peopleWalker;     //走迷宫者
-    HandleMove  handleMove;        //负责处理行走
+    public HandleMove  handleMove;        //负责处理行走
     public MazeView(Point[][] p){
-       point = p; 
-       peopleWalker = new PersonInMaze();
-       handleMove = new HandleMove();
-       initPointXY();  //依据视图重新设置点的坐标
-       handleMove.setMazePoint(point);
-       block = new Rectangle2D[point.length][point[0].length];
-       setLayout(null);
-       JPanel pNorth = new JPanel();
-       add(handleMove);
-       add(peopleWalker);
-       handleMove.setSize(120,30);
-       handleMove.setLocation(leftX,leftY/3);
-       peopleWalker.setSize(width,height);
-       peopleWalker.setAtMazePoint(getEnterPoint(point));
-       peopleWalker.setLocation(getEnterPoint(point).getX(),getEnterPoint(point).getY()); 
-       initView();
-       registerListener();
-   }
+        point = p; 
+        peopleWalker = new PersonInMaze();
+        handleMove = new HandleMove();
+        initPointXY();  //依据视图重新设置点的坐标
+        handleMove.setMazePoint(point);
+        block = new Rectangle2D[point.length][point[0].length];
+        setLayout(null);
+        JPanel pNorth = new JPanel();
+        add(handleMove);
+        add(peopleWalker);
+        handleMove.setSize(120,30);
+        handleMove.setLocation(leftX,leftY/3);
+        peopleWalker.setSize(width,height);
+        peopleWalker.setAtMazePoint(getEnterPoint(point));
+        peopleWalker.setLocation(getEnterPoint(point).getX(),getEnterPoint(point).getY()); 
+        initView();
+        registerListener();
+    }
+    
+    public void nextlevel()
+    {
+    	
+    }
+    
    public void initPointXY(){ //依据视图重新设置点的坐标
        for(int i=0;i<point.length;i++) {
          for(int j=0;j<point[i].length;j++){

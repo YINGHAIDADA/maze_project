@@ -14,13 +14,21 @@ public class AppWindow {
        IntegrationView integrationView = new IntegrationView();
        integrationView.addMazeView("随机迷宫",mazeView);
        
-       mazeMaker = new MazeByFile(new File("迷宫文件/蜀道迷宫.txt"));
-       
+       mazeMaker = new MazeByFile(new File("迷宫文件/蜀道迷宫.txt"));      
        point= mazeMaker.initMaze();
        SetChargeOnRoad policeTwo = new  ChargeOnRoad();
        policeTwo.setMAXMoney(10); //收费站最高收费额为10
        point = policeTwo.setChargeOnRoad(point,6); //设置6个收费站
        mazeView  = new FixedMazeView(point);
        integrationView.addMazeView("蜀道迷宫",mazeView);
+       
+       mazeMaker = new MazeByFile(new File("迷宫文件/闯关迷宫1.txt")); 
+       point= mazeMaker.initMaze();
+       SetChargeOnRoad policeThree = new  ChargeOnRoad();
+       policeThree.setMAXMoney(15); //收费站最高收费额为15
+       point = policeThree.setChargeOnRoad(point,6); //设置6个收费站
+       mazeView  = new ChallengeMazeView(point);
+       mazeView.handleMove.getview(mazeView);
+       integrationView.addMazeView("闯关迷宫",mazeView);
    }
 }

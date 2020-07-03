@@ -15,6 +15,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 
 	public RandomMazeView(Point[][] p) {
 		super(p);
+		handleMove.mazetag=0;
 		renew = new JButton("ªª√‘π¨");
 		add(renew);
 		renew.setSize(80, 30);

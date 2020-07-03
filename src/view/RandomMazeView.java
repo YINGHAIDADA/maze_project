@@ -19,7 +19,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		renew = new JButton("ªª√‘π¨");
 		add(renew);
 		renew.setSize(80, 30);
-		renew.setLocation(1, leftY);
+		renew.setLocation(1, leftY); 
 		renew.addActionListener(this);
 		
 		label=new Label("∆§∑Ù—°‘Ò");

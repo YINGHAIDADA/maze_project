@@ -111,6 +111,7 @@ public class HandleMove extends JPanel implements KeyListener,ActionListener {
                 recordTime.stop();
                 JOptionPane.showMessageDialog(this,"您可以离开出口","消息框",
                                        JOptionPane.INFORMATION_MESSAGE );
+                //TODO 添加输入名字的消息框
                 int x=p[p.length-1][p[0].length-1].getX()+person.getBounds().width;
                 int y=p[p.length-1][p[0].length-1].getY()+person.getBounds().height;
                 person.setLocation(x,y);

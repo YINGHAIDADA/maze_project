@@ -4,7 +4,7 @@ import view.*;
 import java.io.File;
 public class AppWindow {
    public static void main(String []args) {
-       MazeMaker mazeMaker = new MazeByRandom(21,39);
+       MazeMaker mazeMaker = new MazeByRandom(25,50);
        Point[][] point= mazeMaker.initMaze();
        //设置收费点（可选）
        SetChargeOnRoad policeOne = new  ChargeOnRoad();

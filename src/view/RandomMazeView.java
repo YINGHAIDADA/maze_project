@@ -39,7 +39,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.equals(renew)) {
 			int m = point.length;
 			int n = point[0].length;
 			MazeMaker mazeMaker = new MazeByRandom(m, n);
@@ -55,7 +54,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			peopleWalker.cleanMoney();
 			repaint();
 			peopleWalker.requestFocusInWindow();
-		}
 	}
 	
 	public void itemStateChanged(ItemEvent e)

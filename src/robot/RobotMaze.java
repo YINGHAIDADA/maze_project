@@ -112,7 +112,6 @@ public class RobotMaze {
         }
         //System.out.println("找到最短路径");
     }
-
     /**
      * 打印迷宫路径搜索的结果
      */

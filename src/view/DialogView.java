@@ -145,7 +145,7 @@ class TopDialog extends JDialog implements ActionListener
         while(p != null && i < 10)
         {
         	JLabel nameL = new JLabel(p.name);
-        	JLabel timeL = new JLabel(Integer.toString(p.time));
+        	JLabel timeL = new JLabel(Integer.toString(p.time) + "Ãë");
         	nameL.setFont(DialogView.f3);
         	timeL.setFont(DialogView.f3);
         	nameL.setBounds(185, 50+i*25, 100, 25);

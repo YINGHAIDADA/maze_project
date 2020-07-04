@@ -20,7 +20,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 	int drawchoice = -1;
 	int out = 0;
 	
-	public UserDefinedMazeView(Point[][] p)
+	public UserDefinedMazeView(Point[][] p) throws AWTException
 	{		
 		super(p);
 		handleMove.mazetag=0;

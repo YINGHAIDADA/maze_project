@@ -15,7 +15,7 @@ public class FixedMazeView extends MazeView implements ItemListener,ActionListen
     JButton top;// Ó¢ÐÛ°ñ
     Label label;
     Choice changeskin;
-    public FixedMazeView(Point[][] p){
+    public FixedMazeView(Point[][] p) throws AWTException{
        super(p);
        handleMove.mazetag=1;
        again = new JButton("ÖØ×ß");

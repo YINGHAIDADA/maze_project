@@ -21,40 +21,6 @@ public class Point{
     {
     	state=new boolean[4];
     }
-    public static char[][] zhuanint(Point[][] p)
-    {
-    	char[][] zhuan;
-    	int m=p.length;
-    	int n=p[0].length;
-    	zhuan=new char[m][n];
-    	for(int i=0;i<m;i++)
-    	{
-    		for(int j=0;j<n;j++)
-    		{
-    			if(p[i][j].isRoad())
-    			{
-    				if(p[i][j].isEnter())
-    				{
-    					zhuan[i][j]='*';
-    				}
-    				else if(p[i][j].isOut())
-    				{
-    					zhuan[i][j]='#';
-    				}
-    				else
-    				{
-    					zhuan[i][j]='0';
-    				}
-    			}
-    			else
-    			{
-    				zhuan[i][j]='1';
-    			}
-    		}
-    	}
-    	
-    	return zhuan;
-    }
     public void setX(int x){
         this.x=x;
     }
@@ -94,6 +60,17 @@ public class Point{
     		for(int j=0;j<p[i].length;j++)
     		{
     			if(p[i][j].isOut())
+    				return p[i][j];
+    		}
+    	}
+    	return null;
+    }
+    public static Point getEnter(Point[][] p){
+    	for(int i=0;i<p.length;i++)
+    	{
+    		for(int j=0;j<p[i].length;j++)
+    		{
+    			if(p[i][j].isEnter())
     				return p[i][j];
     		}
     	}

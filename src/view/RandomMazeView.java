@@ -78,6 +78,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			initView();
 			SetChargeOnRoad police = new ChargeOnRoad();
 			point = police.setChargeOnRoad(point, 20); // 设置20个收费站
+			add_IJ();
 			handleMove.recordTime.stop();
 			handleMove.spendTime = 0;
 			handleMove.showTime.setText("0");
@@ -94,10 +95,17 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			in=peopleWalker.getAtMazePoint();
 			out=Point.getOut(point);
 			
+			System.out.println("入口"+in.getI()+","+in.getJ()+"出口"+out.getI()+","+out.getJ());
+			
 			robotMaze.findMazePath(in.getI(), in.getJ(), out.getI(), out.getJ());
 			point=robotMaze.showMazePath(out.getI(), out.getJ());
 			peopleWalker.requestFocusInWindow();
-			smartMove();
+			new Thread() {
+				public void run() {
+					smartMove();
+				};
+			}.start();
+			
 		}
 	}
 	
@@ -108,7 +116,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		int row=point.length;
 		int col=point[0].length;
 		
-		while(peopleWalker.getAtMazePoint()!=Point.getOut(point))
+		while(!peopleWalker.getAtMazePoint().isOut())
 		{
 			m=peopleWalker.getAtMazePoint().getI();
 			n=peopleWalker.getAtMazePoint().getJ();
@@ -121,8 +129,10 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					handleMove.tool.beep(); // 发出嘟的一声
 					peopleWalker.setAtMazePoint(point[m][n+1]);
 					peopleWalker.setLocation(point[m][n+1].getX(), point[m][n+1].getY());
+					point[m][n].setisLuJing(false);
+					System.out.println("向右");
 					if (point[m][n+1].getIsCharge()) {
-						//charseMoney(point[m][n+1]); // 见后面的收费方法charseMoney
+						charseMoney(point[m][n+1]); // 见后面的收费方法charseMoney
 					}
 				}
 			}
@@ -135,8 +145,10 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					handleMove.tool.beep(); // 发出嘟的一声
 					peopleWalker.setAtMazePoint(point[m+1][n]);
 					peopleWalker.setLocation(point[m+1][n].getX(), point[m+1][n].getY());
+					point[m][n].setisLuJing(false);
+					System.out.println("向下");
 					if (point[m+1][n].getIsCharge()) {
-						//charseMoney(point[m+1][n]); // 见后面的收费方法charseMoney
+						charseMoney(point[m+1][n]); // 见后面的收费方法charseMoney
 					}
 				}
 			}
@@ -149,8 +161,9 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					handleMove.tool.beep(); // 发出嘟的一声
 					peopleWalker.setAtMazePoint(point[m][n-1]);
 					peopleWalker.setLocation(point[m][n-1].getX(), point[m][n-1].getY());
+					point[m][n].setisLuJing(false);
 					if (point[m][n-1].getIsCharge()) {
-						//charseMoney(point[m][n-1]); // 见后面的收费方法charseMoney
+						charseMoney(point[m][n-1]); // 见后面的收费方法charseMoney
 					}
 				}
 			}
@@ -163,15 +176,15 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					handleMove.tool.beep(); // 发出嘟的一声
 					peopleWalker.setAtMazePoint(point[m-1][n]);
 					peopleWalker.setLocation(point[m-1][n].getX(), point[m-1][n].getY());
+					point[m][n].setisLuJing(false);
 					if (point[m-1][n].getIsCharge()) {
-						//charseMoney(point[m-1][n]); // 见后面的收费方法charseMoney
+						charseMoney(point[m-1][n]); // 见后面的收费方法charseMoney
 					}
 				}
 			}
-			repaint();
-			
+			//repaint();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
@@ -181,6 +194,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		if(peopleWalker.getAtMazePoint()==Point.getOut(point))
 		{
 			handleMove.recordTime.stop();
+			JOptionPane.showMessageDialog(this, "机器人已到达终点，耗时："+handleMove.spendTime+"秒 花费："+peopleWalker.getMoney()+"元", "消息", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 	}

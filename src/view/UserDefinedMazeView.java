@@ -2,8 +2,6 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-
 import javax.swing.*;
 import data.*;
 import data.Point;
@@ -16,7 +14,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 	Choice selectdraw;
 	Label skin;	
 	Label draw;
-	Label coords;
+	Label coords;// ²âÊÔ×ø±ê
 	int drawchoice = -1;
 	int out = 0;
 	

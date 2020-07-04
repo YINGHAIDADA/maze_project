@@ -1,8 +1,10 @@
 package view;
+
 import javax.swing.*;
 import data.Point;
 import java.awt.*;
 import java.awt.geom.*;
+
 public class MazeView extends JPanel {
     public Point [][] point;        //需要视图的迷宫
     Rectangle2D [][] block;        //迷宫中路或墙的视图

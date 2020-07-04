@@ -1,9 +1,10 @@
 package gui;
+
 import data.*;
 import view.*;
-
 import java.awt.AWTException;
 import java.io.File;
+
 public class AppWindow {
    public static void main(String []args) throws AWTException {
 	   

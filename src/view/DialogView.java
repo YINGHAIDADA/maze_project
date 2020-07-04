@@ -1,12 +1,13 @@
 package view;
+
 import java.awt.*;
 import java.awt.event.*;
-import java.text.*;
 import javax.swing.*;
 import java.io.*;
 import data.Record;
 import data.LinkList;
 import data.FileIO;
+
 public class DialogView extends JFrame implements ActionListener
 {
 	TopDialog d = new TopDialog();
@@ -51,7 +52,7 @@ class InputDialog extends JDialog implements ActionListener
     String str = new String();
     int time;
     
-	InputDialog()// JFrame f
+	InputDialog()
 	{
 		//super(f);		
         this.setLayout(null);
@@ -118,7 +119,6 @@ class TopDialog extends JDialog implements ActionListener
         ImageIcon menubackgroundp = new ImageIcon("迷宫文件/表格1.png");
         menubackgroundp.setImage(menubackgroundp.getImage().getScaledInstance(Width, Height, Image.SCALE_DEFAULT));
         background.setIcon(menubackgroundp);       
-        //bi.setImage(bi.getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));        
         
         top.setFont(DialogView.f2);name.setFont(DialogView.f2);time.setFont(DialogView.f2);
         back.setFont(DialogView.f2);
@@ -139,7 +139,6 @@ class TopDialog extends JDialog implements ActionListener
 			e.printStackTrace();
 		}
         
-        // 将链表中数据打印输出
         Record p = L.h.next;
         int i = 0;
         while(p != null && i < 10)

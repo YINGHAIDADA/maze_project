@@ -2,14 +2,11 @@ package view;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
 import data.*;
 import robot.*;
-
 import java.awt.AWTException;
 import java.awt.Choice;
 import java.awt.Label;
-import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.*;
 

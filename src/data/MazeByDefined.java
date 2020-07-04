@@ -1,13 +1,6 @@
 package data;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 
 public class MazeByDefined implements MazeMaker {
 	public Point[][] point; // point[i][j]是迷宫中的点

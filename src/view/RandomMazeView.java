@@ -98,7 +98,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			point=robotMaze.showMazePath(out.getI(), out.getJ());
 			peopleWalker.requestFocusInWindow();
 			smartMove();
-			repaint();
 		}
 	}
 	
@@ -169,16 +168,14 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					}
 				}
 			}
-			
+			repaint();
 			
 			try {
-				
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-			
 		}
 		
 		if(peopleWalker.getAtMazePoint()==Point.getOut(point))

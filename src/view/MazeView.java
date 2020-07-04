@@ -12,7 +12,6 @@ public class MazeView extends JPanel {
     int leftY = 50;
     PersonInMaze peopleWalker;     //走迷宫者
     public HandleMove  handleMove;        //负责处理行走
-    public RobotMove  robotMove;        //智能算法处理行走
     public MazeView(Point[][] p) throws AWTException{
         point = p; 
         peopleWalker = new PersonInMaze();

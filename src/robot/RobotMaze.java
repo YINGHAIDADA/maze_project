@@ -5,7 +5,6 @@ import data.Point;
 /**
  * 描述: 迷宫的类型定义
  *
- * 
  */
 public class RobotMaze {
     // 迷宫所有的路径存储在二维数组当中

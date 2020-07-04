@@ -9,7 +9,6 @@ import robot.*;
 import java.awt.AWTException;
 import java.awt.Choice;
 import java.awt.Label;
-import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.*;
 

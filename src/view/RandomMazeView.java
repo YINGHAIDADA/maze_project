@@ -168,7 +168,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					}
 				}
 			}
-			
 			repaint();
 			
 			try {

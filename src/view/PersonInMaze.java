@@ -7,7 +7,8 @@ public class PersonInMaze extends JTextField{
    Toolkit tool;
    public static Image image; 
    int money;    //被收取的全部钱
-   PersonInMaze(){
+   
+   PersonInMaze() throws AWTException{
       tool=getToolkit();
       setEditable(false);
       setBorder(null);

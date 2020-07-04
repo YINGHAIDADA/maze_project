@@ -103,7 +103,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	
 	public void smartMove()
 	{
-		
+		handleMove.recordTime.start();
 		int m = -1, n = -1;
 		int row=point.length;
 		int col=point[0].length;
@@ -118,7 +118,12 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m][n+1].getisLuJing())
 				{
-					handleMove.r.keyPress(KeyEvent.VK_RIGHT);
+					handleMove.tool.beep(); // 发出嘟的一声
+					peopleWalker.setAtMazePoint(point[m][n+1]);
+					peopleWalker.setLocation(point[m][n+1].getX(), point[m][n+1].getY());
+					if (point[m][n+1].getIsCharge()) {
+						//charseMoney(point[m][n+1]); // 见后面的收费方法charseMoney
+					}
 				}
 			}
 			
@@ -127,7 +132,12 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m+1][n].getisLuJing())
 				{
-					handleMove.r.keyPress(KeyEvent.VK_DOWN);
+					handleMove.tool.beep(); // 发出嘟的一声
+					peopleWalker.setAtMazePoint(point[m+1][n]);
+					peopleWalker.setLocation(point[m+1][n].getX(), point[m+1][n].getY());
+					if (point[m+1][n].getIsCharge()) {
+						//charseMoney(point[m+1][n]); // 见后面的收费方法charseMoney
+					}
 				}
 			}
 			
@@ -136,7 +146,12 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m][n-1].getisLuJing())
 				{
-					handleMove.r.keyPress(KeyEvent.VK_LEFT);
+					handleMove.tool.beep(); // 发出嘟的一声
+					peopleWalker.setAtMazePoint(point[m][n-1]);
+					peopleWalker.setLocation(point[m][n-1].getX(), point[m][n-1].getY());
+					if (point[m][n-1].getIsCharge()) {
+						//charseMoney(point[m][n-1]); // 见后面的收费方法charseMoney
+					}
 				}
 			}
 			
@@ -145,13 +160,35 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m-1][n].getisLuJing())
 				{
-					handleMove.r.keyPress(KeyEvent.VK_RIGHT);	
+					handleMove.tool.beep(); // 发出嘟的一声
+					peopleWalker.setAtMazePoint(point[m-1][n]);
+					peopleWalker.setLocation(point[m-1][n].getX(), point[m-1][n].getY());
+					if (point[m-1][n].getIsCharge()) {
+						//charseMoney(point[m-1][n]); // 见后面的收费方法charseMoney
+					}
 				}
 			}
 			
-			handleMove.r.delay(500);
+			repaint();
+			
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 		}
 		
+		if(peopleWalker.getAtMazePoint()==Point.getOut(point))
+		{
+			handleMove.recordTime.stop();
+		}
+		
+	}
+	
+	public void charseMoney(Point p) {
+		int money = p.getChargeMoney();
+		peopleWalker.setMoney(money);
 	}
 	
 	public void itemStateChanged(ItemEvent e)

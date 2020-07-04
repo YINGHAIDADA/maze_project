@@ -18,6 +18,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	JButton robotButton;//智能行走
 	Choice changeskin;//皮肤选择
 	Label label;
+	MoveThread moveThread;
 	
 	RobotMaze robotMaze;
 
@@ -57,7 +58,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	{
 		int row=this.point.length;
 		int col=this.point[0].length;
-		System.out.println(row+" "+col);
 		for(int i=0;i<row;i++)
 		{
 			for(int j=0;j<col;j++)
@@ -70,6 +70,8 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==renew) {
+			moveThread.stop();
+			
 			int m = point.length;
 			int n = point[0].length;
 			MazeMaker mazeMaker = new MazeByRandom(m, n);
@@ -95,17 +97,13 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			in=peopleWalker.getAtMazePoint();
 			out=Point.getOut(point);
 			
-			System.out.println("入口"+in.getI()+","+in.getJ()+"出口"+out.getI()+","+out.getJ());
+			//System.out.println("入口"+in.getI()+","+in.getJ()+"出口"+out.getI()+","+out.getJ());
 			
 			robotMaze.findMazePath(in.getI(), in.getJ(), out.getI(), out.getJ());
 			point=robotMaze.showMazePath(out.getI(), out.getJ());
 			peopleWalker.requestFocusInWindow();
-			new Thread() {
-				public void run() {
-					smartMove();
-				};
-			}.start();
-			
+			moveThread=new MoveThread();
+			moveThread.start();	
 		}
 	}
 	
@@ -130,7 +128,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					peopleWalker.setAtMazePoint(point[m][n+1]);
 					peopleWalker.setLocation(point[m][n+1].getX(), point[m][n+1].getY());
 					point[m][n].setisLuJing(false);
-					System.out.println("向右");
 					if (point[m][n+1].getIsCharge()) {
 						charseMoney(point[m][n+1]); // 见后面的收费方法charseMoney
 					}
@@ -146,7 +143,6 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 					peopleWalker.setAtMazePoint(point[m+1][n]);
 					peopleWalker.setLocation(point[m+1][n].getX(), point[m+1][n].getY());
 					point[m][n].setisLuJing(false);
-					System.out.println("向下");
 					if (point[m+1][n].getIsCharge()) {
 						charseMoney(point[m+1][n]); // 见后面的收费方法charseMoney
 					}
@@ -184,7 +180,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			}
 			//repaint();
 			try {
-				Thread.sleep(200);
+				Thread.sleep(250);
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
@@ -223,5 +219,18 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		{
 			PersonInMaze.image=tool.getImage("迷宫文件/chuyin.gif");
 		}
+	}
+	
+	private class MoveThread extends Thread{//用于智能行走的线程类
+		public void run() {
+			try {
+				smartMove();
+			}
+			catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+		
 	}
 }

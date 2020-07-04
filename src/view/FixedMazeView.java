@@ -2,6 +2,7 @@ package view;
 import javax.swing.JButton;
 import data.*;
 
+import java.awt.AWTException;
 import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Toolkit;

@@ -62,15 +62,12 @@ public class RobotMaze {
      * —∞’“√‘π¨¬∑æ∂
      */
     public void findMazePath(int in_x,int in_y,int out_x,int out_y) {
-        if(!maze[in_x][in_y].isRoad()){
-            return;
-        }
 
         queue.offer(maze[in_x][in_y]);
         while(!queue.isEmpty()){
             Point top = queue.peek();
-            int x = top.x;
-            int y = top.y;
+            int x = top.getI();
+            int y = top.getJ();
             if(x == out_x && y == out_y){
                 return;
             }
@@ -118,13 +115,13 @@ public class RobotMaze {
             int x = out_x;
             int y = out_y;
             for(;;){
-                maze[x][y].setHaveFlag(true);;
+                maze[x][y].setisLuJing(true);;
                 Point node = pathrecord[x*col+y];
                 if(node == null){
                     break;
                 }
-                x = node.x;
-                y = node.y;
+                x = node.getI();
+                y = node.getJ();
             }
 
         return maze;

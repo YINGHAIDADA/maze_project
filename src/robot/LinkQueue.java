@@ -1,16 +1,18 @@
 package robot;
 
+import data.Point;
+
 /**
  * 链式队列
  * front：指向的是链表的头节点
  * rear: 永远指向的是末尾节点
  * @param <T>
  */
-public class LinkQueue<T>{
+public class LinkQueue<Point>{
     // 指向头节点(队头)
-    private Entry<T> front;
+    private Entry<Point> front;
     // 指向尾节点(队尾)
-    private Entry<T> rear;
+    private Entry<Point> rear;
     // 记录队列节点的个数
     private int count;
 
@@ -25,8 +27,8 @@ public class LinkQueue<T>{
      * 入队操作
      * @param val
      */
-    public void offer(T val){
-        Entry<T> node = new Entry<>(val, null);
+    public void offer(Point val){
+        Entry<Point> node = new Entry<>(val, null);
         this.rear.next = node;
         this.rear = node;
         this.count++;
@@ -36,8 +38,8 @@ public class LinkQueue<T>{
      * 出队操作
      * @return
      */
-    public T poll(){
-        T val = null;
+    public Point poll(){
+    	Point val = null;
         if(this.front.next != null){
             val = this.front.next.data;
             this.front.next = this.front.next.next;
@@ -50,8 +52,8 @@ public class LinkQueue<T>{
         return val;
     }
 
-    public T peek(){
-        T val = null;
+    public Point peek(){
+    	Point val = null;
         if(this.front.next != null){
             val = this.front.next.data;
         }
@@ -76,13 +78,13 @@ public class LinkQueue<T>{
 
     /**
      * 节点类型定义
-     * @param <T>
+     * @param <Point>
      */
-    static class Entry<T>{
-        T data;
-        Entry<T> next;
+    static class Entry<Point>{
+    	Point data;
+        Entry<Point> next;
 
-        public Entry(T data, Entry<T> next) {
+        public Entry(Point data, Entry<Point> next) {
             this.data = data;
             this.next = next;
         }

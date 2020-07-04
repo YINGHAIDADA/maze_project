@@ -12,7 +12,8 @@ public class PersonInMaze extends JTextField{
       setEditable(false);
       setBorder(null);
       setOpaque(false);
-      setToolTipText("单击我,然后按键盘方向键");
+      setToolTipText("单击我,然后按键盘方向键吧");
+      setFocusable(true);
       requestFocusInWindow();
       image=tool.getImage("迷宫文件/person.gif");
    }

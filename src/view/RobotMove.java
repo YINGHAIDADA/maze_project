@@ -1,11 +1,15 @@
 package view;
 
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -14,6 +18,7 @@ import robot.*;
 
 public class RobotMove extends JPanel implements ActionListener {
 	Point[][] p;
+	Robot r;
 	int spendTime = 0;
 	javax.swing.Timer recordTime; // 计时器
 	JTextField showTime;
@@ -24,7 +29,8 @@ public class RobotMove extends JPanel implements ActionListener {
 	int mazetag; // 0随机迷宫,1蜀道迷宫，2闯关迷宫
 	MazeView view;
 	
-	public RobotMove() {
+	public RobotMove() throws AWTException {
+		r = new Robot();
 		recordTime = new javax.swing.Timer(1000, this);
 		showTime = new JTextField("0", 5);
 		tool = getToolkit();
@@ -37,17 +43,61 @@ public class RobotMove extends JPanel implements ActionListener {
 	
 	public void smartMove(Point[][] point,PersonInMaze person1)
 	{
+		
 		p=point;
-		person=person1;
 		recordTime.start();
 		int m = -1, n = -1;
+		int row=point.length;
+		int col=point[0].length;
 		
-		while(person.getAtMazePoint()!=Point.getOut(p))
+		while(person1.getAtMazePoint()!=Point.getOut(p))
 		{
-			m=person.getAtMazePoint().x;
-			n=person.getAtMazePoint().y;
+			m=person1.getAtMazePoint().getI();
+			n=person1.getAtMazePoint().getJ();
+			
+			//向右走
+			if(n<col-1)
+			{
+				if(point[m][n+1].getisLuJing())
+				{
+					r.keyPress(KeyEvent.VK_RIGHT);
+				}
+			}
+			
+			//向下走
+			if(m<row-1)
+			{
+				if(point[m+1][n].getisLuJing())
+				{
+					r.keyPress(KeyEvent.VK_DOWN);
+				}
+			}
+			
+			//向左走
+			if(n>0)
+			{
+				if(point[m][n-1].getisLuJing())
+				{
+					r.keyPress(KeyEvent.VK_LEFT);
+				}
+			}
 			
 			//向上走
+			if(m>0)
+			{
+				if(point[m-1][n].getisLuJing())
+				{
+					r.keyPress(KeyEvent.VK_RIGHT);	
+				}
+			}
+		
+		}
+		
+		if(person.getAtMazePoint()==Point.getOut(p))
+		{
+			recordTime.stop();
+			JOptionPane.showMessageDialog(this, "机器人已成功到达终点，花费为"+person.getMoney()+"元", "消息框", JOptionPane.INFORMATION_MESSAGE);
+			
 		}
 		
 	}

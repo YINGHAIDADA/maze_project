@@ -1,8 +1,10 @@
 package data;
 public class Point{
 	
-    public int x;            //点的位置坐标
-	public int y;
+    int x;            //点的位置坐标
+	int y;
+	int i;
+	int j;
     int number;         //编号
     boolean isRoad;     //是否是路
     boolean isEnter;    //是否是入口点
@@ -13,6 +15,12 @@ public class Point{
     int chargeMoney;    //该点收取的费用
     public boolean[] state;	// 节点四个方向的行走状态，true表示可以走，false表示不能走
     
+    boolean isLuJing;	//是不是最短路径上的点
+    
+    public Point()
+    {
+    	state=new boolean[4];
+    }
     public static char[][] zhuanint(Point[][] p)
     {
     	char[][] zhuan;
@@ -59,6 +67,18 @@ public class Point{
     public int getY(){
         return y;
     }
+    public void setI(int i){
+        this.i=i;
+    }
+    public void setJ(int j){
+        this.j=j;
+    }
+    public int getI(){
+        return i;
+    }
+    public int getJ(){
+        return j;
+    }
     public boolean isEnter(){
         return isEnter;
     }
@@ -99,6 +119,12 @@ public class Point{
     }
     public boolean getHaveFlag(){
         return haveFlag;
+    }
+    public void setisLuJing(boolean boo){
+    	isLuJing=boo;
+    }
+    public boolean getisLuJing(){
+    	return isLuJing;
     }
     public void setNumber(int n){
         number = n;

@@ -1,9 +1,11 @@
 package gui;
 import data.*;
 import view.*;
+
+import java.awt.AWTException;
 import java.io.File;
 public class AppWindow {
-   public static void main(String []args) {
+   public static void main(String []args) throws AWTException {
        MazeMaker mazeMaker = new MazeByRandom(25,50);
        Point[][] point= mazeMaker.initMaze();
        //设置收费点（可选）

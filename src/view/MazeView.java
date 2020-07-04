@@ -17,10 +17,8 @@ public class MazeView extends JPanel {
         point = p; 
         peopleWalker = new PersonInMaze();
         handleMove = new HandleMove();
-        robotMove=new RobotMove();
         initPointXY();  //依据视图重新设置点的坐标
         handleMove.setMazePoint(point);
-        robotMove.setMazePoint(point);
         block = new Rectangle2D[point.length][point[0].length];
         setLayout(null);
         JPanel pNorth = new JPanel();
@@ -28,8 +26,6 @@ public class MazeView extends JPanel {
         add(peopleWalker);
         handleMove.setSize(120,30);
         handleMove.setLocation(leftX,leftY/3);
-        robotMove.setSize(120,30);
-        robotMove.setLocation(leftX,leftY/3);
         peopleWalker.setSize(width,height);
         peopleWalker.setAtMazePoint(getEnterPoint(point));
         peopleWalker.setLocation(getEnterPoint(point).getX(),getEnterPoint(point).getY()); 
@@ -52,7 +48,6 @@ public class MazeView extends JPanel {
        peopleWalker.setAtMazePoint(getEnterPoint(point));
        peopleWalker.setLocation(getEnterPoint(point).getX(),getEnterPoint(point).getY()); 
        handleMove.setMazePoint(point);
-       robotMove.setMazePoint(point);
    }
    public void initView() {
       for(int i = 0;i<point.length;i++){
@@ -65,14 +60,12 @@ public class MazeView extends JPanel {
       }
       repaint();
       handleMove.showTime.setText("0");
-      robotMove.showTime.setText("0");
       peopleWalker.requestFocusInWindow();
       validate();
    }
    public void registerListener(){
       peopleWalker.addKeyListener(handleMove);
       handleMove.setMazePoint(point);
-      robotMove.setMazePoint(point);
    }
    public void paintComponent(Graphics g){
        super.paintComponent(g);

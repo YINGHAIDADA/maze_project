@@ -56,22 +56,26 @@ public class RobotMaze {
                 }
             }
         }
+        //System.out.println("修改好方向");
     }
 
     /**
      * 寻找迷宫路径
      */
     public void findMazePath(int in_x,int in_y,int out_x,int out_y) {
-
+    	if(!maze[in_x][in_y].isRoad())
+    		return;
+    	
         queue.offer(maze[in_x][in_y]);
         while(!queue.isEmpty()){
             Point top = queue.peek();
             int x = top.getI();
             int y = top.getJ();
             if(x == out_x && y == out_y){
+            	//System.out.println("出口入口相同");
                 return;
             }
-
+            
             // 往右方向走
             if(maze[x][y].state[Constant.RIGHT]){
                 maze[x][y].state[Constant.RIGHT] = false;
@@ -106,6 +110,7 @@ public class RobotMaze {
 
             queue.poll();
         }
+        //System.out.println("找到最短路径");
     }
 
     /**
@@ -123,7 +128,27 @@ public class RobotMaze {
                 x = node.getI();
                 y = node.getJ();
             }
-
+            for(int i=0;i<maze.length;i++)
+            {
+            	for(int j=0;j<maze[0].length;j++)
+            	{
+            		if(maze[i][j].isRoad())
+            		{
+            			if(maze[i][j].getisLuJing())
+            			{
+            				System.out.print("*");
+            			}
+            			else {
+							System.out.print("0");
+						}
+            		}
+            		else {
+						System.out.print("1");
+					}
+            	}
+            	System.out.println();
+            }
+            //System.out.println("打印完成");
         return maze;
     }
 

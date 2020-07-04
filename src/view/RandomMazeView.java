@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JButton;
 import data.*;
+import robot.*;
 
 import java.awt.Choice;
 import java.awt.Label;
@@ -10,8 +11,11 @@ import java.awt.event.*;
 
 public class RandomMazeView extends MazeView implements ItemListener,ActionListener {
 	JButton renew; // 重新开始
+	JButton robotButton;//智能行走
 	Choice changeskin;//皮肤选择
 	Label label;
+	
+	RobotMaze robotMaze;
 
 	public RandomMazeView(Point[][] p) {
 		super(p);
@@ -36,9 +40,16 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		changeskin.setSize(80, 30);
 		changeskin.setLocation(1, 130);
 		changeskin.addItemListener(this);
+		
+		robotButton = new JButton("换迷宫");
+		add(robotButton);
+		robotButton.setSize(80, 30);
+		robotButton.setLocation(1, 180); 
+		robotButton.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==renew) {
 			int m = point.length;
 			int n = point[0].length;
 			MazeMaker mazeMaker = new MazeByRandom(m, n);
@@ -54,6 +65,21 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			peopleWalker.cleanMoney();
 			repaint();
 			peopleWalker.requestFocusInWindow();
+		}
+		else if(e.getSource()==robotButton)//智能行走
+		{
+			remove(handleMove);
+			add(robotMove);
+			Point in,out;
+			robotMaze=new RobotMaze(point);
+			robotMaze.initMazeNodePathState();
+			in=peopleWalker.getAtMazePoint();
+			out=Point.getOut(point);
+			
+			robotMaze.findMazePath(in.x, in.y, out.x, out.y);
+			point=robotMaze.showMazePath(out.x, out.y);
+			robotMove.smartMove(point,peopleWalker);			
+		}
 	}
 	
 	public void itemStateChanged(ItemEvent e)

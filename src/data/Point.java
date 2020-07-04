@@ -1,6 +1,8 @@
 package data;
 public class Point{
-    int x,y;            //点的位置坐标
+	
+    public int x;            //点的位置坐标
+	public int y;
     int number;         //编号
     boolean isRoad;     //是否是路
     boolean isEnter;    //是否是入口点
@@ -9,6 +11,42 @@ public class Point{
     boolean isMountain; //该点是否是山
     boolean isCharge;   //该点是否收费 
     int chargeMoney;    //该点收取的费用
+    public boolean[] state;	// 节点四个方向的行走状态，true表示可以走，false表示不能走
+    
+    public static char[][] zhuanint(Point[][] p)
+    {
+    	char[][] zhuan;
+    	int m=p.length;
+    	int n=p[0].length;
+    	zhuan=new char[m][n];
+    	for(int i=0;i<m;i++)
+    	{
+    		for(int j=0;j<n;j++)
+    		{
+    			if(p[i][j].isRoad())
+    			{
+    				if(p[i][j].isEnter())
+    				{
+    					zhuan[i][j]='*';
+    				}
+    				else if(p[i][j].isOut())
+    				{
+    					zhuan[i][j]='#';
+    				}
+    				else
+    				{
+    					zhuan[i][j]='0';
+    				}
+    			}
+    			else
+    			{
+    				zhuan[i][j]='1';
+    			}
+    		}
+    	}
+    	
+    	return zhuan;
+    }
     public void setX(int x){
         this.x=x;
     }
@@ -29,6 +67,17 @@ public class Point{
     }
     public boolean isOut(){
         return isOut;
+    }
+    public static Point getOut(Point[][] p){
+    	for(int i=0;i<p.length;i++)
+    	{
+    		for(int j=0;j<p[i].length;j++)
+    		{
+    			if(p[i][j].isOut())
+    				return p[i][j];
+    		}
+    	}
+    	return null;
     }
     public void setIsEnter(boolean boo){
         isEnter = boo;

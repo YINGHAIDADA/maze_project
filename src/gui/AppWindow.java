@@ -36,11 +36,7 @@ public class AppWindow {
        // 自定义迷宫
        mazeMaker = new MazeByDefined(25,50); 
        point= mazeMaker.initMaze();
-       //SetChargeOnRoad policeFour = new  ChargeOnRoad();
-       //policeThree.setMAXMoney(15); //收费站最高收费额为15
-       //point = policeFour.setChargeOnRoad(point,0); //设置6个收费站
-       mazeView  = new UserDefinedMazeView(point);
-       //mazeView.handleMove.getview(mazeView);
+       mazeView  = new UserDefinedMazeView(point); 
        integrationView.addMazeView("自定义迷宫",mazeView);
    }
 }

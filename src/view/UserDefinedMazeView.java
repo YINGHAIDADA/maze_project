@@ -24,7 +24,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 	{		
 		super(p);
 		handleMove.mazetag=0;
-		redefine = new JButton("确定");
+		redefine = new JButton("重绘图");
 		add(redefine);
 		redefine.setSize(80, 30);
 		redefine.setLocation(1, 260); 
@@ -37,8 +37,9 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		restart.addActionListener(this);
 		
 		skin = new Label("皮肤选择");
+		skin.setBackground(Color.YELLOW);
 		add(skin);
-		skin.setSize(80, 30);
+		skin.setSize(75, 30);
 		skin.setLocation(1, 90);
 		
 		changeskin=new Choice();
@@ -52,11 +53,12 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		changeskin.addItemListener(this);
 		
 		coords = new Label();
-		coords.setBounds(1, 300, 80, 30);
+		coords.setBounds(1, 300, 60, 30);
 		add(coords);
 		
 		draw = new Label("选择绘图模块");
-		draw.setBounds(1, 200, 80, 30);
+		draw.setBackground(Color.GREEN);
+		draw.setBounds(1, 200, 75, 30);
 		add(draw);
 		
 		selectdraw=new Choice();
@@ -67,10 +69,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		selectdraw.add("删除路");
 		add(selectdraw);
 		selectdraw.setBounds(1, 230, 80, 30);
-		selectdraw.addItemListener(this);
-		
-		
-		
+		selectdraw.addItemListener(this);	
 		this.addMouseListener(new MouseAdpt()); //鼠标按钮监听
         this.addMouseMotionListener(new MouseMotionAdpt()); //鼠标移动监听
 	}
@@ -85,7 +84,6 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 			point = mazeMaker.initMaze();
 			initPointXY();
 			initView();
-			//SetChargeOnRoad police = new ChargeOnRoad();
 			handleMove.recordTime.stop();
 			handleMove.spendTime = 0;
 			handleMove.showTime.setText("0");
@@ -96,10 +94,8 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		}
 		else if(e.getSource() == restart)
 		{
-
 			initPointXY();
 			initView();
-			//SetChargeOnRoad police = new ChargeOnRoad();
 			handleMove.recordTime.stop();
 			handleMove.spendTime = 0;
 			handleMove.showTime.setText("0");
@@ -158,7 +154,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
     {       
         public void mouseMoved(MouseEvent e)
         {
-            coords.setText("X: " + (e.getX()) + ",Y: " + (e.getY())); //参考鼠标坐标            
+            //coords.setText("X: " + (e.getX()) + ",Y: " + (e.getY())); //参考鼠标坐标            
         }
         
         public void mouseDragged(MouseEvent e)

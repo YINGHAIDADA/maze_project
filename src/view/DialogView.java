@@ -83,12 +83,10 @@ class InputDialog extends JDialog implements ActionListener
 		if(e.getSource() == confirm)
 		{
 			str = text.getText();			
-			//**********
 			try {
 				FileIO.FileIn("迷宫文件/英雄榜.txt", str);
 				FileIO.FileIn("迷宫文件/英雄榜.txt", Integer.toString(time));
 			} catch (IOException e1) {
-				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
 			}
 			this.setVisible(false);
@@ -138,11 +136,9 @@ class TopDialog extends JDialog implements ActionListener
         try {
         	FileIO.FileOut("迷宫文件/英雄榜.txt", L);
 		} catch (IOException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
         
-        //L.Put();
         // 将链表中数据打印输出
         Record p = L.h.next;
         int i = 0;

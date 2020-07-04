@@ -19,7 +19,7 @@ public class ChallengeMazeView extends MazeView implements ItemListener,ActionLi
     Font font;
     public String mazename;
     public static int count,top=5;
-    public ChallengeMazeView(Point[][] p){
+    public ChallengeMazeView(Point[][] p) throws AWTException{
        super(p);
        handleMove.mazetag=2;
        count=1;

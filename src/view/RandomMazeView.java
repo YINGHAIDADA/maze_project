@@ -18,13 +18,11 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	JButton robotButton;//ÖÇÄÜÐÐ×ß
 	Choice changeskin;//Æ¤·ôÑ¡Ôñ
 	Label label;
-	Robot r;
 	
 	RobotMaze robotMaze;
 
 	public RandomMazeView(Point[][] p) throws AWTException {
 		super(p);
-		r=new Robot();
 		handleMove.mazetag=0;
 		add_IJ();
 		renew = new JButton("»»ÃÔ¹¬");
@@ -120,7 +118,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m][n+1].getisLuJing())
 				{
-					r.keyPress(KeyEvent.VK_RIGHT);
+					handleMove.r.keyPress(KeyEvent.VK_RIGHT);
 				}
 			}
 			
@@ -129,7 +127,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m+1][n].getisLuJing())
 				{
-					r.keyPress(KeyEvent.VK_DOWN);
+					handleMove.r.keyPress(KeyEvent.VK_DOWN);
 				}
 			}
 			
@@ -138,7 +136,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m][n-1].getisLuJing())
 				{
-					r.keyPress(KeyEvent.VK_LEFT);
+					handleMove.r.keyPress(KeyEvent.VK_LEFT);
 				}
 			}
 			
@@ -147,10 +145,11 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			{
 				if(point[m-1][n].getisLuJing())
 				{
-					r.keyPress(KeyEvent.VK_RIGHT);	
+					handleMove.r.keyPress(KeyEvent.VK_RIGHT);	
 				}
 			}
-		
+			
+			handleMove.r.delay(500);
 		}
 		
 	}

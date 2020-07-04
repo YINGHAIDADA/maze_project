@@ -16,10 +16,12 @@ public class HandleMove extends JPanel implements KeyListener, ActionListener {
 	int out_i, out_j; // 存放出口点位置索引
 	int mazetag; // 0随机迷宫,1蜀道迷宫，2闯关迷宫
 	MazeView view;
+	Robot r;
 	
 	InputDialog input = new InputDialog();// 开输入对话框
 	
-	HandleMove() {
+	HandleMove() throws AWTException {
+		r=new Robot();
 		recordTime = new javax.swing.Timer(1000, this);
 		showTime = new JTextField("0", 5);
 		tool = getToolkit();

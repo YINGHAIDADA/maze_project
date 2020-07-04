@@ -16,6 +16,7 @@ public class AppWindow {
        IntegrationView integrationView = new IntegrationView();
        integrationView.addMazeView("随机迷宫",mazeView);
        
+       // 蜀道迷宫
        mazeMaker = new MazeByFile(new File("迷宫文件/蜀道迷宫.txt"));      
        point= mazeMaker.initMaze();
        SetChargeOnRoad policeTwo = new  ChargeOnRoad();
@@ -24,6 +25,7 @@ public class AppWindow {
        mazeView  = new FixedMazeView(point);
        integrationView.addMazeView("蜀道迷宫",mazeView);
        
+       // 闯关迷宫
        mazeMaker = new MazeByFile(new File("迷宫文件/闯关迷宫1.txt")); 
        point= mazeMaker.initMaze();
        SetChargeOnRoad policeThree = new  ChargeOnRoad();

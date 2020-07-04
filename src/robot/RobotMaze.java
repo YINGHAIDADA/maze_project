@@ -148,6 +148,7 @@ public class RobotMaze {
             	}
             	System.out.println();
             }
+            System.out.println();
             //System.out.println("¥Ú”°ÕÍ≥…");
         return maze;
     }

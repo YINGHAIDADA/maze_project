@@ -6,6 +6,7 @@ import data.*;
 import robot.*;
 import java.awt.AWTException;
 import java.awt.Choice;
+import java.awt.Font;
 import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -16,6 +17,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 	Choice changeskin;//皮肤选择
 	Label label;
 	MoveThread moveThread;
+	int robotalive=0;
 	
 	RobotMaze robotMaze;
 
@@ -44,10 +46,11 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		changeskin.setLocation(1, 130);
 		changeskin.addItemListener(this);
 		
-		robotButton = new JButton("智能行走");
+		robotButton = new JButton("智能寻路");
 		add(robotButton);
 		robotButton.setSize(80, 30);
-		robotButton.setLocation(1, 180); 
+		robotButton.setLocation(1, 180);
+		robotButton.setFont(new Font("微软雅黑",Font.ITALIC|Font.BOLD,10));
 		robotButton.addActionListener(this);
 	}
 	
@@ -67,7 +70,11 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==renew) {
-			moveThread.stop();
+			if(robotalive==1)
+			{
+				moveThread.stop();
+				robotalive=0;
+			}
 			
 			int m = point.length;
 			int n = point[0].length;
@@ -88,6 +95,7 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 		}
 		else if(e.getSource()==robotButton)//智能行走
 		{
+			if(robotalive==0) {
 			Point in,out;
 			robotMaze=new RobotMaze(point);
 			robotMaze.initMazeNodePathState();
@@ -101,6 +109,8 @@ public class RandomMazeView extends MazeView implements ItemListener,ActionListe
 			peopleWalker.requestFocusInWindow();
 			moveThread=new MoveThread();
 			moveThread.start();	
+			robotalive=1;
+			}
 		}
 	}
 	

@@ -21,6 +21,7 @@ public class Point{
     {
     	state=new boolean[4];
     }
+    
     public void setX(int x){
         this.x=x;
     }
@@ -129,5 +130,41 @@ public class Point{
     }
     public int distanceTo(Point p){
          return Math.abs(this.getX()-p.getX())+Math.abs(this.getY()-p.getY());
+    }
+    
+    public static String PointtoString(Point[][] p)
+    {
+    	String s="";
+    	int row,col;
+    	row=p.length;
+    	col=p[0].length;
+    	for(int i=0;i<row;i++)
+    	{
+    		for(int j=0;j<col;j++)
+    		{
+    			if(p[i][j].isRoad())
+    			{
+    				if(p[i][j].isEnter())
+    				{
+    					s+='*';
+    				}
+    				else if(p[i][j].isOut())
+    				{
+    					s+='#';
+    				}
+    				else
+    				{
+    					s+='0';
+    				}
+    			}
+    			else
+    			{
+    				s+='1';
+    			}
+    		}
+    		s+="\n";
+    	}
+    	
+    	return s;
     }
 }

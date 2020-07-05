@@ -1,15 +1,21 @@
 package test;
 
-import data.Point;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import data.*;
 
 public class Normaltest {
-	public static void main(String[] args) {
-		Point[] a=new Point[5];
-		Point b=a[0];
-		if(b==null)
-		{
-			System.out.println("没毛病");
-		}
+	public static void main(String[] args) throws IOException {
+		String a="干你娘";
+		a="迷宫文件/"+a+".txt";
+		File as=new File(a);
+		as.createNewFile();
+		FileWriter witer=new FileWriter(as);
+		witer.write("干尼玛是\n");
+		witer.close();
+		System.out.println("新建成功");
 	}
 
 }

@@ -8,7 +8,7 @@ public class IntegrationView extends JFrame{
         tabbedPane= new JTabbedPane(JTabbedPane.LEFT);//¿¨ÔÚ×ó²à 
         tabbedPane.validate();
         add(tabbedPane,BorderLayout.CENTER); 
-        setBounds(5,5,1500,720);
+        setBounds(300,150,1350,720);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }

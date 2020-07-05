@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import data.*;
 import data.Point;
@@ -10,12 +11,14 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 {
 	JButton redefine; // 重新自定义
 	JButton restart;// 重新开始
+	JButton confirm;
 	Choice changeskin;//皮肤选择
 	Choice selectdraw;
 	Label skin;	
 	Label draw;
 	Label coords;// 测试坐标
 	int drawchoice = -1;
+	int outx = -1, outy = -1;
 	int out = 0;
 	
 	public UserDefinedMazeView(Point[][] p) throws AWTException
@@ -25,7 +28,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		redefine = new JButton("重绘图");
 		add(redefine);
 		redefine.setSize(80, 30);
-		redefine.setLocation(1, 260); 
+		redefine.setLocation(1, 160); 
 		redefine.addActionListener(this);
 		
 		restart = new JButton("重走");
@@ -33,6 +36,11 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		restart.setSize(80, 30);
 		restart.setLocation(1, leftY); 
 		restart.addActionListener(this);
+		
+		confirm = new JButton("完成");
+		confirm.setBounds(1, 260, 80, 30);
+		add(confirm);	
+		confirm.addActionListener(this);
 		
 		skin = new Label("皮肤选择");
 		skin.setBackground(Color.YELLOW);
@@ -52,7 +60,7 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 		
 		coords = new Label();
 		coords.setBounds(1, 300, 60, 30);
-		add(coords);
+		//add(coords);
 		
 		draw = new Label("选择绘图模块");
 		draw.setBackground(Color.GREEN);
@@ -102,6 +110,32 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
 			repaint();
 			peopleWalker.requestFocusInWindow();
 		}
+//		else if(e.getSource() == confirm)
+//		{
+//			String ad = "迷宫文件/自定义迷宫1.txt";
+//			File a = new File(ad); 			
+//			try {
+//				a.createNewFile();
+//				for(int i = 0; i < point.length; i++)
+//				{
+//					for(int j = 0; j < point[0].length; j++)
+//					{															
+//						if(point[i][j].isEnter())
+//							FileIO.FileRenew(ad, "*");
+//						else if(point[i][j].isOut())
+//							FileIO.FileRenew(ad, "#");
+//						else if(point[i][j].isRoad())
+//							FileIO.FileRenew(ad, "0");						
+//						else
+//							FileIO.FileRenew(ad, "1");					
+//					}	
+//					if(i < point.length - 1)
+//						FileIO.FileRenew(ad, "\n");	
+//				}
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+//		}
 	}
 	
 	// 鼠标点击监听
@@ -130,6 +164,8 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
             		if(out == 0)
             		{
             			point[(j - 50) / 22][(i - 80) / 22].setIsOut(true);// 点击的点设为出口
+            			outx = (j - 50) / 22;
+            			outy = (i - 80) / 22;
             			out = 1;
             		}
             		else
@@ -138,8 +174,11 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
             	else if(drawchoice == 0)
             	{
             		point[(j - 50) / 22][(i - 80) / 22].setIsRoad(false); // 鼠标点击的路都删除  
-            		point[(j - 50) / 22][(i - 80) / 22].setIsCharge(false); // 鼠标点击的收费站删除  
+            		point[(j - 50) / 22][(i - 80) / 22].setIsCharge(false); // 鼠标点击的收费站删除
+            		point[(j - 50) / 22][(i - 80) / 22].setChargeMoney(0);
             		point[(j - 50) / 22][(i - 80) / 22].setIsOut(false); // 鼠标点击的出口删除  
+            		if((j - 50) / 22 == outx && (i - 80) / 22 == outy)
+            			out = 0;
             	}  
             	else;
             	repaint();
@@ -167,6 +206,8 @@ public class UserDefinedMazeView extends MazeView implements ItemListener,Action
         			point[(j - 50) / 22][(i - 80) / 22].setIsRoad(false); // 鼠标点击的路都删除  
             		point[(j - 50) / 22][(i - 80) / 22].setIsCharge(false); // 鼠标点击的收费站删除  
             		point[(j - 50) / 22][(i - 80) / 22].setIsOut(false); // 鼠标点击的出口删除  
+            		if((j - 50) / 22 == outx && (i - 80) / 22 == outy)
+            			out = 0;
         		}
         		repaint();
         	}

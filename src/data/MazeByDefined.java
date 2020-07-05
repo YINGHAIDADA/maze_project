@@ -25,7 +25,6 @@ public class MazeByDefined implements MazeMaker {
 		initRoad();
 		point[0][0].setIsEnter(true);
 		point[0][0].setIsRoad(true);
-		point[0][0].setIsMountain(true);
 		return point;
 	}
 
@@ -33,9 +32,6 @@ public class MazeByDefined implements MazeMaker {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < column; j++) {
 				point[i][j].setIsRoad(false); // 设置点都不是路
-				point[i][j].setHaveFlag(false); // 设置点都没插旗
-				point[i][j].setIsMountain(false); // 设置点都不是山
-
 			}
 		}
 	}

@@ -1,13 +1,10 @@
 package data;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class FileIO 
 {
-	static public void FileIn(String ad, String s) throws IOException// 写入文件
+	static public void FileInRear(String ad, String s) throws IOException// 写入文件
 	{	
 		FileWriter writer = new FileWriter(ad, true);
         writer.write("\n" + s);
@@ -26,5 +23,18 @@ public class FileIO
 			L.SortIn(q);						
 		}
 		in.close();
+	}
+	
+	static public void FileRenew(String ad, String s) throws IOException
+	{
+//		BufferedWriter out = new BufferedWriter(new FileWriter(ad)); // 创建缓存区字符输出流，需要传入Write对象
+//		out.write(s);
+//		//out.newLine();
+//		out.flush();
+//		out.close();
+		FileWriter fw = new FileWriter(ad); // 可以自动创建
+		String str1 = s;
+		fw.write(str1);
+		fw.close();
 	}
 }

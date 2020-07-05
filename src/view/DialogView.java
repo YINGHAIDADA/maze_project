@@ -85,8 +85,8 @@ class InputDialog extends JDialog implements ActionListener
 		{
 			str = text.getText();			
 			try {
-				FileIO.FileIn("迷宫文件/英雄榜.txt", str);
-				FileIO.FileIn("迷宫文件/英雄榜.txt", Integer.toString(time));
+				FileIO.FileInRear("迷宫文件/英雄榜.txt", str);
+				FileIO.FileInRear("迷宫文件/英雄榜.txt", Integer.toString(time));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
